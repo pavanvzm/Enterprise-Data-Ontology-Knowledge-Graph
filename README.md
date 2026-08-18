@@ -1,23 +1,30 @@
 # Enterprise Data Ontology Knowledge Graph
 
-A comprehensive enterprise data ontology and knowledge graph system for managing complex business data structures and relationships.
+A comprehensive enterprise data ontology and knowledge graph system for managing complex business data structures and relationships, complete with an interactive REST API and a real-time visual web dashboard.
+
+![Enterprise Ontology & Knowledge Graph Dashboard](docs/images/dashboard.png)
 
 ## Project Overview
 
-This project provides a flexible framework for:
-- Defining enterprise data ontologies
-- Building and managing knowledge graphs
-- Querying relationships and entities
-- Visualizing data structures
+This project provides a flexible and scalable framework for:
+- **Enterprise Ontology Definition**: Modular structures for defining entities, relationships, attributes, and canonical vocabularies.
+- **Knowledge Graph Management**: Graph node/edge management, degree analytics, and neighborhood traversal routines.
+- **Interactive Web Dashboard**: Built-in visual dashboard for entity exploration, relationship mapping, graph metrics, and distribution breakdown.
+- **RESTful API**: Comprehensive FastAPI service for programmatic CRUD operations and real-time graph queries.
+- **Comprehensive Testing**: Complete unit and integration test coverage with `pytest`.
+
+---
 
 ## Features
 
-- 🏗️ Modular architecture with clear separation of concerns
-- 🔗 Flexible entity and relationship definitions
-- 🌐 RESTful API for programmatic access
-- 📊 Support for complex business relationships
-- 🧪 Comprehensive test coverage
-- 📚 Detailed documentation
+- 🏗️ **Modular Architecture**: Clear separation of ontology builder, graph manager, validators, and REST API layers.
+- 🔗 **Entities & Relationships**: Complete lifecycle management (Create, Read, Update, Delete, Filter).
+- 📊 **Real-time Metrics**: Compute degree distribution, node counts, relationship statistics, and graph topology.
+- 🌐 **RESTful API**: Programmatic HTTP API with standard JSON request/response formats.
+- 🖥️ **Visual Dashboard**: Modern web UI served directly at `/dashboard` displaying live graph state and statistics.
+- 🧪 **High Quality & Test Coverage**: Fully verified with unit and integration tests using `pytest`.
+
+---
 
 ## Quick Start
 
@@ -28,109 +35,56 @@ This project provides a flexible framework for:
 git clone <repository-url>
 cd Enterprise-Data-Ontology-Knowledge-Graph
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 ```
 
-### Running the API
+### Running the API & Dashboard
 
 ```bash
 python -m uvicorn src.api.app:app --reload
 ```
 
-The API will be available at `http://localhost:8000`
+- **Interactive Dashboard**: Navigate to `http://localhost:8000/dashboard` or `http://localhost:8000/`
+- **Swagger UI Documentation**: `http://localhost:8000/docs`
+- **ReDoc API Docs**: `http://localhost:8000/redoc`
 
-### API Documentation
+---
 
-Interactive API documentation is available at:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+## API Summary
 
-## Project Structure
+### System & Metrics
+- `GET /health` - API Health check
+- `GET /api/v1/stats` - Graph summary statistics & metrics
 
-```
-.
-├── src/                       # Source code
-│   ├── ontology/             # Ontology definitions
-│   ├── knowledge_graph/       # Knowledge graph implementation
-│   ├── api/                  # REST API
-│   └── utils/                # Utility functions
-├── tests/                    # Test suite
-│   ├── unit/                 # Unit tests
-│   └── integration/          # Integration tests
-├── docs/                     # Documentation
-│   ├── design/               # Design documents
-│   ├── api/                  # API documentation
-│   └── examples/             # Usage examples
-├── data/                     # Data files
-├── config/                   # Configuration
-├── notebooks/                # Jupyter notebooks
-├── scripts/                  # Utility scripts
-├── docker/                   # Docker configuration
-├── requirements.txt          # Python dependencies
-└── README.md                 # This file
-```
+### Dashboard
+- `GET /dashboard` or `GET /` - Interactive visual HTML dashboard
 
-## Development
+### Entities (`/api/v1/entities`)
+- `GET /api/v1/entities` - List entities (optional `?type=` filter)
+- `POST /api/v1/entities` - Create entity
+- `GET /api/v1/entities/{id}` - Get entity details & connected neighbors
+- `PUT /api/v1/entities/{id}` - Update entity properties/type
+- `DELETE /api/v1/entities/{id}` - Delete entity and cascade relationships
 
-### Running Tests
+### Relationships (`/api/v1/relationships`)
+- `GET /api/v1/relationships` - List relationships (optional `?type=`, `?source=`, `?target=` filters)
+- `POST /api/v1/relationships` - Create relationship
+- `GET /api/v1/relationships/{id}` - Get relationship details
+- `DELETE /api/v1/relationships/{id}` - Delete relationship
+
+---
+
+## Testing
+
+Run all unit and integration tests:
 
 ```bash
-# Run all tests
 pytest
-
-# Run with coverage
-pytest --cov=src
-
-# Run specific test file
-pytest tests/unit/test_ontology.py
 ```
 
-### Code Quality
-
-```bash
-# Format code
-black src tests
-
-# Check code style
-flake8 src tests
-
-# Type checking
-mypy src
-```
-
-## API Endpoints
-
-### Health Check
-- `GET /health` - Check API health status
-
-### Entities
-- `GET /api/v1/entities` - Get all entities
-- `POST /api/v1/entities` - Create new entity
-- `GET /api/v1/entities/{id}` - Get entity by ID
-- `PUT /api/v1/entities/{id}` - Update entity
-- `DELETE /api/v1/entities/{id}` - Delete entity
-
-### Relationships
-- `GET /api/v1/relationships` - Get all relationships
-- `POST /api/v1/relationships` - Create new relationship
-- `GET /api/v1/relationships/{id}` - Get relationship by ID
-
-## Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Write tests
-4. Submit a pull request
+---
 
 ## License
 
-See LICENSE file for details.
-
-## Support
-
-For issues and questions, please open an issue on GitHub.
+MIT License. See LICENSE file for details.
